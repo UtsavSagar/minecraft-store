@@ -12,6 +12,7 @@
       color: white;
     }
 
+    /* NAVBAR */
     .navbar {
       display: flex;
       justify-content: space-between;
@@ -41,20 +42,20 @@
 
     .menu {
       font-size: 22px;
-      margin-left: 10px;
       cursor: pointer;
     }
 
+    /* SIDEBAR FIXED */
     .sidebar {
       position: fixed;
       top: 0;
       right: 0;
-      width: 260px;
+      width: 250px;
       height: 100%;
       background: #0f2a1d;
-      padding: 20px;
       transform: translateX(100%);
       transition: 0.3s;
+      padding: 20px;
       z-index: 1000;
     }
 
@@ -62,16 +63,25 @@
       transform: translateX(0);
     }
 
+    .sidebar a {
+      display: block;
+      margin: 20px 0;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
     .close-btn {
+      font-size: 22px;
       float: right;
       cursor: pointer;
     }
 
+    /* OVERLAY */
     .overlay {
       position: fixed;
       width: 100%;
       height: 100%;
-      background: rgba(0,0,0,0.5);
+      background: rgba(0,0,0,0.6);
       display: none;
       z-index: 900;
     }
@@ -80,16 +90,28 @@
       display: block;
     }
 
+    /* HERO IMAGE ONLY */
     .hero {
-      height: 200px;
-      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
-        url('background.png') center/cover no-repeat;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
+      height: 180px;
+      background: url('background.png') center/cover no-repeat;
     }
 
+    /* TEXT BELOW IMAGE */
+    .hero-text {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .hero-text h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .hero-text p {
+      opacity: 0.8;
+    }
+
+    /* CARD */
     .container {
       padding: 15px;
     }
@@ -102,6 +124,7 @@
       margin-top: 15px;
     }
 
+    /* LOGIN BOX */
     .login-popup {
       position: fixed;
       top: 50%;
@@ -127,19 +150,21 @@
       width: 100%;
       background: #22c55e;
       border: none;
+      cursor: pointer;
     }
 
     .footer {
       text-align: center;
-      padding: 25px;
+      padding: 20px;
       background: #0f2a1d;
-      margin-top: 30px;
+      margin-top: 20px;
     }
   </style>
 </head>
 
 <body>
 
+  <!-- NAVBAR -->
   <div class="navbar">
     <div class="logo">
       <img src="logo.png">
@@ -152,8 +177,10 @@
     </div>
   </div>
 
+  <!-- OVERLAY -->
   <div class="overlay" id="overlay" onclick="closeAll()"></div>
 
+  <!-- SIDEBAR -->
   <div class="sidebar" id="sidebar">
     <span class="close-btn" onclick="toggleMenu()">❌</span>
     <a onclick="showPage('ranks')">Ranks</a>
@@ -162,13 +189,16 @@
     <a onclick="showPage('youtube')">YouTube</a>
   </div>
 
-  <div class="hero">
-    <div>
-      <h1>Warden SMP Store</h1>
-      <p>Best Survival Server Back With Season 2</p>
-    </div>
+  <!-- IMAGE -->
+  <div class="hero"></div>
+
+  <!-- TEXT BELOW IMAGE -->
+  <div class="hero-text">
+    <h1>Warden SMP Store</h1>
+    <p>Best Survival Server Back With Season 2</p>
   </div>
 
+  <!-- CONTENT -->
   <div class="container" id="content">
     <div class="card">
       <h2>No ranks available yet</h2>
@@ -176,12 +206,14 @@
     </div>
   </div>
 
+  <!-- LOGIN -->
   <div class="login-popup" id="loginBox">
     <h3>Login</h3>
-    <input type="text" placeholder="Enter Minecraft Username">
-    <button onclick="closeAll()">Login</button>
+    <input type="text" id="username" placeholder="Enter Minecraft Username">
+    <button onclick="login()">Login</button>
   </div>
 
+  <!-- FOOTER -->
   <div class="footer">
     <h3>Warden SMP</h3>
     <p>Best Survival Server</p>
@@ -202,6 +234,16 @@
       document.getElementById("loginBox").style.display = "none";
       document.getElementById("sidebar").classList.remove("active");
       document.getElementById("overlay").classList.remove("active");
+    }
+
+    function login() {
+      let name = document.getElementById("username").value;
+      if(name === "") {
+        alert("Enter username!");
+      } else {
+        alert("Logged in as " + name);
+        closeAll();
+      }
     }
 
     function showPage(page) {

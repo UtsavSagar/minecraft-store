@@ -1,302 +1,150 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Warden SMP Store</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Warden SMP Store</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: #07140f;
-      color: white;
-    }
+<style>
+body{margin:0;font-family:Arial;background:#07140f;color:white;}
 
-    /* NAVBAR */
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 15px;
-      background: rgba(15,42,29,0.9);
-      backdrop-filter: blur(10px);
-    }
+.navbar{display:flex;justify-content:space-between;padding:12px;background:#0f2a1d;}
+.logo{display:flex;align-items:center;gap:10px;}
+.logo img{height:40px;border-radius:10px;}
+.login-btn{background:#22c55e;padding:8px 14px;border-radius:8px;cursor:pointer;}
+.menu{font-size:22px;cursor:pointer;}
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+.sidebar{position:fixed;top:0;right:0;width:250px;height:100%;background:#0f2a1d;
+transform:translateX(100%);transition:0.3s;padding:20px;z-index:1000;}
+.sidebar.active{transform:translateX(0);}
+.sidebar a{display:block;margin:18px 0;cursor:pointer;}
 
-    .logo img {
-      height: 40px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px #22c55e;
-    }
+.overlay{position:fixed;width:100%;height:100%;background:rgba(0,0,0,0.6);
+display:none;z-index:900;}
+.overlay.active{display:block;}
 
-    .login-btn {
-      background: linear-gradient(45deg,#22c55e,#16a34a);
-      padding: 8px 14px;
-      border-radius: 8px;
-      cursor: pointer;
-    }
+.hero{height:180px;background:url('background.png') center/cover;}
+.hero-text{text-align:center;padding:20px;}
 
-    .menu {
-      font-size: 22px;
-      margin-left: 10px;
-      cursor: pointer;
-    }
+.container{padding:15px;}
+.card{background:#12271c;border-radius:12px;padding:20px;margin-top:15px;text-align:center;}
 
-    /* SIDEBAR */
-    .sidebar {
-      position: fixed;
-      top: 0;
-      right: 0;
-      width: 260px;
-      height: 100%;
-      background: rgba(15,42,29,0.95);
-      backdrop-filter: blur(15px);
-      transform: translateX(100%);
-      transition: 0.3s;
-      padding: 20px;
-      z-index: 1000;
-    }
+button{margin-top:10px;padding:10px;width:100%;background:#22c55e;border:none;border-radius:8px;}
 
-    .sidebar.active {
-      transform: translateX(0);
-    }
-
-    .sidebar a {
-      display: block;
-      margin: 18px 0;
-      cursor: pointer;
-    }
-
-    .close-btn {
-      float: right;
-      cursor: pointer;
-    }
-
-    /* OVERLAY */
-    .overlay {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.6);
-      display: none;
-      z-index: 900;
-    }
-
-    .overlay.active {
-      display: block;
-    }
-
-    /* HERO */
-    .hero {
-      height: 180px;
-      background: url('background.png') center/cover no-repeat;
-      filter: brightness(0.7);
-    }
-
-    .hero-text {
-      text-align: center;
-      padding: 20px;
-    }
-
-    /* CARDS */
-    .container {
-      padding: 15px;
-    }
-
-    .card {
-      background: rgba(18,39,28,0.8);
-      border-radius: 15px;
-      padding: 25px;
-      margin-top: 15px;
-      text-align: center;
-      transition: 0.3s;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 25px #22c55e55;
-    }
-
-    button {
-      margin-top: 10px;
-      padding: 10px;
-      border: none;
-      background: linear-gradient(45deg,#22c55e,#16a34a);
-      color: white;
-      border-radius: 8px;
-      cursor: pointer;
-      width: 100%;
-      transition: 0.2s;
-    }
-
-    button:hover {
-      transform: scale(1.05);
-    }
-
-    /* LOGIN POPUP */
-    .login-popup {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(15,42,29,0.95);
-      padding: 20px;
-      border-radius: 12px;
-      display: none;
-      z-index: 2000;
-      width: 80%;
-      max-width: 300px;
-    }
-
-    .login-popup input {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-    }
-
-    /* PAYMENT BOX */
-    #paymentBox {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%,-50%) scale(0.9);
-      background: rgba(15,42,29,0.95);
-      padding: 20px;
-      border-radius: 15px;
-      display: none;
-      z-index: 3000;
-      text-align: center;
-      width: 85%;
-      max-width: 330px;
-      transition: 0.3s;
-    }
-
-    .footer {
-      text-align: center;
-      padding: 20px;
-      background: rgba(15,42,29,0.9);
-      margin-top: 20px;
-    }
-  </style>
+.login-popup,#paymentBox{
+position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+background:#0f2a1d;padding:20px;border-radius:10px;display:none;z-index:2000;width:80%;
+}
+</style>
 </head>
 
 <body>
 
-<!-- NAVBAR -->
 <div class="navbar">
-  <div class="logo">
-    <img src="logo.png">
-    <b>Warden SMP Store</b>
-  </div>
-
-  <div>
-    <span class="login-btn" onclick="handleLoginClick()" id="loginText">Login</span>
-    <span class="menu" onclick="toggleMenu()">☰</span>
-  </div>
+<div class="logo">
+<img src="logo.png"><b>Warden SMP Store</b>
+</div>
+<div>
+<span class="login-btn" onclick="handleLoginClick()" id="loginText">Login</span>
+<span class="menu" onclick="toggleMenu()">☰</span>
+</div>
 </div>
 
 <div class="overlay" id="overlay" onclick="closeAll()"></div>
 
-<!-- SIDEBAR -->
 <div class="sidebar" id="sidebar">
-  <span class="close-btn" onclick="toggleMenu()">❌</span>
-  <a onclick="showPage('ranks')">Ranks</a>
-  <a onclick="showPage('kits')">Kits</a>
-  <a onclick="showPage('items')">Items</a>
+<a onclick="showPage('ranks')">Ranks</a>
+<a onclick="showPage('kits')">Kits</a>
+<a onclick="showPage('items')">Items</a>
 </div>
 
-<!-- HERO -->
 <div class="hero"></div>
 
 <div class="hero-text">
-  <h1>Warden SMP Store</h1>
-  <p>Best Survival Server Back With Season 2</p>
+<h1>Warden SMP Store</h1>
+<p>Best Survival Server Back With Season 2</p>
 </div>
 
-<!-- CONTENT -->
 <div class="container" id="content">
-  <div class="card"><h2>Welcome 👋</h2></div>
+<div class="card"><h2>Welcome 👋</h2></div>
 </div>
 
 <!-- LOGIN -->
 <div class="login-popup" id="loginBox">
-  <h3>Login</h3>
-  <input type="text" id="username" placeholder="Minecraft Username">
-  <button onclick="login()">Login</button>
+<h3>Login</h3>
+<input id="username" placeholder="Minecraft Username">
+<button onclick="login()">Login</button>
 </div>
 
 <!-- PAYMENT -->
 <div id="paymentBox">
-  <h3 id="itemName"></h3>
-  <p id="itemPrice"></p>
-  <img src="qr.png" style="width:200px;border-radius:10px;">
-  <p>Send screenshot on Discord</p>
-  <a href="https://discord.gg/mqP9RVCzwH" target="_blank">
-    <button>Join Discord</button>
-  </a>
-  <button onclick="paid()">I Paid</button>
-  <button onclick="closePayment()" style="background:red;">Cancel</button>
-</div>
-
-<!-- FOOTER -->
-<div class="footer">
-  <h3>Warden SMP</h3>
+<h3 id="itemName"></h3>
+<p id="itemPrice"></p>
+<img src="qr.png" style="width:200px">
+<p>Send screenshot on Discord</p>
+<a href="https://discord.gg/mqP9RVCzwH"><button>Join Discord</button></a>
+<button onclick="closePayment()">Close</button>
 </div>
 
 <script>
 function toggleMenu(){sidebar.classList.toggle("active");overlay.classList.toggle("active");}
-function openLogin(){loginBox.style.display="block";overlay.classList.add("active");}
-function closeAll(){loginBox.style.display="none";sidebar.classList.remove("active");overlay.classList.remove("active");}
+function closeAll(){sidebar.classList.remove("active");overlay.classList.remove("active");loginBox.style.display="none";}
 function login(){
-  let name=document.getElementById("username").value;
-  if(!name)return alert("Enter username");
-  localStorage.setItem("mc_user",name);
-  loginText.innerText=name;
-  closeAll();
+let n=username.value;
+if(!n)return alert("Enter username");
+localStorage.setItem("user",n);
+loginText.innerText=n;
+closeAll();
 }
 function handleLoginClick(){
-  let saved=localStorage.getItem("mc_user");
-  if(saved){
-    if(confirm("Logout?")){
-      localStorage.removeItem("mc_user");
-      loginText.innerText="Login";
-    }
-  } else openLogin();
+let u=localStorage.getItem("user");
+if(u){if(confirm("Logout?")){localStorage.removeItem("user");loginText.innerText="Login";}}
+else loginBox.style.display="block";
 }
 
 function buy(item){
-  let user=localStorage.getItem("mc_user")||"Unknown";
-  itemName.innerText=item;
-  itemPrice.innerText="Player: "+user;
-  paymentBox.style.display="block";
-  overlay.classList.add("active");
+itemName.innerText=item;
+itemPrice.innerText="User: "+(localStorage.getItem("user")||"Guest");
+paymentBox.style.display="block";
+overlay.classList.add("active");
 }
-
 function closePayment(){paymentBox.style.display="none";overlay.classList.remove("active");}
-function paid(){alert("Send screenshot on Discord");closePayment();}
 
 function showPage(page){
-  if(page==="ranks"){
-    content.innerHTML="<div class='card'><h2>Ranks Store</h2></div>";
-  }
-  if(page==="kits"){
-    content.innerHTML="<div class='card'><h2>Kits Store</h2></div>";
-  }
-  if(page==="items"){
-    content.innerHTML="<div class='card'><h2>Items Store</h2></div>";
-  }
-  closeAll();
+
+if(page==="ranks"){
+content.innerHTML=`
+<div class="card"><h2>Ranks</h2></div>
+
+<div class="card"><h3>VIP ₹349</h3><button onclick="buy('VIP ₹349')">Buy</button></div>
+<div class="card"><h3>VVIP ₹549</h3><button onclick="buy('VVIP ₹549')">Buy</button></div>
+<div class="card"><h3>Psychopath ₹799</h3><button onclick="buy('Psychopath ₹799')">Buy</button></div>
+`;
 }
 
-window.onload=function(){
-  let saved=localStorage.getItem("mc_user");
-  if(saved) loginText.innerText=saved;
-};
+if(page==="kits"){
+content.innerHTML=`
+<div class="card"><h2>Kits</h2></div>
+
+<div class="card"><h3>Elite ₹69</h3><button onclick="buy('Elite Kit ₹69')">Buy</button></div>
+<div class="card"><h3>Max ₹99</h3><button onclick="buy('Max Kit ₹99')">Buy</button></div>
+<div class="card"><h3>Warden ₹699</h3><button onclick="buy('Warden Kit ₹699')">Buy</button></div>
+`;
+}
+
+if(page==="items"){
+content.innerHTML=`
+<div class="card"><h2>Items</h2></div>
+
+<div class="card"><h3>1M Money ₹10</h3><button onclick="buy('1M ₹10')">Buy</button></div>
+<div class="card"><h3>10M Money ₹70</h3><button onclick="buy('10M ₹70')">Buy</button></div>
+<div class="card"><h3>Netherite ₹10</h3><button onclick="buy('Netherite ₹10')">Buy</button></div>
+`;
+}
+
+closeAll();
+}
+
+window.onload=()=>{let u=localStorage.getItem("user");if(u)loginText.innerText=u;}
 </script>
 
 </body>

@@ -47,21 +47,22 @@
       cursor: pointer;
     }
 
-    /* SIDEBAR (SMOOTH SLIDE) */
+    /* SIDEBAR FIXED */
     .sidebar {
       position: fixed;
       top: 0;
-      right: -260px;
+      right: 0;
       width: 260px;
       height: 100%;
       background: #0f2a1d;
       padding: 20px;
-      transition: right 0.35s ease-in-out;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
       z-index: 1000;
     }
 
-    .sidebar.open {
-      right: 0;
+    .sidebar.active {
+      transform: translateX(0);
     }
 
     .sidebar a {
@@ -72,26 +73,31 @@
       font-size: 18px;
     }
 
-    /* HERO (MINECRAFT BG + OVERLAY) */
+    /* OVERLAY */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      z-index: 900;
+    }
+
+    .overlay.active {
+      display: block;
+    }
+
+    /* HERO FIX (WORKING IMAGE) */
     .hero {
       height: 180px;
       background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
-                  url('https://wallpapercave.com/wp/wp2757874.jpg') center/cover no-repeat;
+        url('https://images.alphacoders.com/112/1129032.jpg') center/cover no-repeat;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 10px;
-    }
-
-    .hero h1 {
-      margin: 0;
-      font-size: 24px;
-    }
-
-    .hero p {
-      font-size: 14px;
-      opacity: 0.9;
     }
 
     /* CONTENT */
@@ -105,7 +111,6 @@
       padding: 25px;
       text-align: center;
       margin-top: 15px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.3);
     }
 
     /* FOOTER */
@@ -132,6 +137,9 @@
       <span class="menu" onclick="toggleMenu()">☰</span>
     </div>
   </div>
+
+  <!-- OVERLAY -->
+  <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
   <!-- SIDEBAR -->
   <div class="sidebar" id="sidebar">
@@ -166,25 +174,10 @@
   <!-- SCRIPT -->
   <script>
     function toggleMenu() {
-      document.getElementById("sidebar").classList.toggle("open");
+      document.getElementById("sidebar").classList.toggle("active");
+      document.getElementById("overlay").classList.toggle("active");
     }
   </script>
-
-</body>
-</html>
-  <!-- CONTENT -->
-  <div class="container">
-    <div class="card">
-      <h2>No ranks available yet</h2>
-      <p>Check back soon!</p>
-    </div>
-  </div>
-
-  <!-- FOOTER -->
-  <div class="footer">
-    <h3>MC Server</h3>
-    <p>Best Minecraft server with custom ranks</p>
-  </div>
 
 </body>
 </html>

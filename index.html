@@ -17,7 +17,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 15px;
+      padding: 12px 15px;
       background: #0f2a1d;
     }
 
@@ -28,91 +28,61 @@
     }
 
     .logo img {
-      height: 35px;
-      width: 35px;
-      border-radius: 6px;
-      box-shadow: 0 0 10px #22c55e;
-    }
-
-    .logo span {
-      font-weight: bold;
-      font-size: 18px;
+      height: 40px;
+      width: 40px;
+      border-radius: 8px;
     }
 
     .login-btn {
       background: #22c55e;
-      padding: 8px 15px;
-      border-radius: 5px;
+      padding: 8px 14px;
+      border-radius: 6px;
       cursor: pointer;
-    }
-
-    .menu {
-      font-size: 22px;
-      cursor: pointer;
-      margin-left: 10px;
-    }
-
-    /* SIDEBAR */
-    .sidebar {
-      position: fixed;
-      right: -250px;
-      top: 0;
-      width: 250px;
-      height: 100%;
-      background: #0f2a1d;
-      transition: 0.3s;
-      padding: 20px;
-      z-index: 1000;
-    }
-
-    .sidebar a {
-      display: block;
-      margin: 15px 0;
-      color: white;
-      text-decoration: none;
-      font-size: 18px;
+      font-size: 14px;
     }
 
     /* HERO */
     .hero {
-      background: url('https://images.unsplash.com/photo-1606112219348-204d7d8b94ee') center/cover;
-      height: 200px;
+      height: 180px;
+      background: url('https://images.unsplash.com/photo-1606112219348-204d7d8b94ee') center/cover no-repeat;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
+      padding: 10px;
     }
 
     .hero h1 {
-      font-size: 30px;
       margin: 0;
+      font-size: 24px;
+    }
+
+    .hero p {
+      font-size: 14px;
+      opacity: 0.8;
     }
 
     /* CARD */
-    .card {
-      margin: 20px;
-      padding: 20px;
-      background: #12271c;
-      border-radius: 10px;
-      text-align: center;
+    .container {
+      padding: 15px;
     }
 
-    button {
-      background: #22c55e;
-      border: none;
-      padding: 10px;
-      margin-top: 10px;
-      cursor: pointer;
-      border-radius: 5px;
+    .card {
+      background: #12271c;
+      border-radius: 12px;
+      padding: 25px;
+      text-align: center;
+      margin-top: 15px;
     }
 
     /* FOOTER */
     .footer {
-      padding: 20px;
-      background: #0f2a1d;
-      margin-top: 40px;
       text-align: center;
+      padding: 25px 15px;
+      background: #0f2a1d;
+      margin-top: 30px;
     }
+
   </style>
 </head>
 
@@ -121,22 +91,11 @@
   <!-- NAVBAR -->
   <div class="navbar">
     <div class="logo">
-      <img src="logo.png" alt="Server Logo">
-      <span>MC Server</span>
+      <img src="logo.png">
+      <b>MC Server</b>
     </div>
 
-    <div>
-      <span class="login-btn">Login</span>
-      <span class="menu" onclick="toggleMenu()">☰</span>
-    </div>
-  </div>
-
-  <!-- SIDEBAR -->
-  <div class="sidebar" id="sidebar">
-    <a href="#">Ranks</a>
-    <a href="#">Store</a>
-    <a href="#">Staff</a>
-    <a href="#">YouTube</a>
+    <div class="login-btn">Login</div>
   </div>
 
   <!-- HERO -->
@@ -147,10 +106,12 @@
     </div>
   </div>
 
-  <!-- NO RANKS CARD -->
-  <div class="card">
-    <h2>No ranks available yet</h2>
-    <p>Check back soon!</p>
+  <!-- CONTENT -->
+  <div class="container">
+    <div class="card">
+      <h2>No ranks available yet</h2>
+      <p>Check back soon!</p>
+    </div>
   </div>
 
   <!-- FOOTER -->
@@ -158,21 +119,6 @@
     <h3>MC Server</h3>
     <p>Best Minecraft server with custom ranks</p>
   </div>
-
-  <script>
-    function toggleMenu() {
-      let sidebar = document.getElementById("sidebar");
-      sidebar.style.right = sidebar.style.right === "0px" ? "-250px" : "0px";
-    }
-
-    function buy(item) {
-      alert(
-        "To buy " + item + ":\n\n" +
-        "Pay via UPI: yourupi@id\n" +
-        "Send screenshot in Discord"
-      );
-    }
-  </script>
 
 </body>
 </html>

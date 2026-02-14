@@ -34,6 +34,7 @@ button{margin-top:10px;padding:10px;width:100%;background:#22c55e;border:none;bo
 position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
 background:#0f2a1d;padding:20px;border-radius:10px;display:none;z-index:2000;width:80%;
 }
+
 </style>
 </head>
 
@@ -55,6 +56,7 @@ background:#0f2a1d;padding:20px;border-radius:10px;display:none;z-index:2000;wid
 <a onclick="showPage('ranks')">Ranks</a>
 <a onclick="showPage('kits')">Kits</a>
 <a onclick="showPage('items')">Items</a>
+<a onclick="showPage('staff')">Staff</a>
 </div>
 
 <div class="hero"></div>
@@ -113,31 +115,56 @@ function showPage(page){
 
 if(page==="ranks"){
 content.innerHTML=`
-<div class="card"><h2>Ranks</h2></div>
+<div class="card"><h2>👑 Ranks</h2></div>
 
-<div class="card"><h3>VIP ₹349</h3><button onclick="buy('VIP ₹349')">Buy</button></div>
-<div class="card"><h3>VVIP ₹549</h3><button onclick="buy('VVIP ₹549')">Buy</button></div>
-<div class="card"><h3>Psychopath ₹799</h3><button onclick="buy('Psychopath ₹799')">Buy</button></div>
+<div class="card">
+<h3>VIP ₹349</h3>
+<p>Fly + Support + Kit</p>
+<button onclick="buy('VIP ₹349')">Buy</button>
+</div>
+
+<div class="card">
+<h3>VVIP ₹549</h3>
+<p>Admin help + Fast response + Kit</p>
+<button onclick="buy('VVIP ₹549')">Buy</button>
+</div>
+
+<div class="card">
+<h3>Psychopath ₹799</h3>
+<p>All perks + Max Kit</p>
+<button onclick="buy('Psychopath ₹799')">Buy</button>
+</div>
 `;
 }
 
 if(page==="kits"){
 content.innerHTML=`
-<div class="card"><h2>Kits</h2></div>
+<div class="card"><h2>🔥 Kits</h2></div>
 
-<div class="card"><h3>Elite ₹69</h3><button onclick="buy('Elite Kit ₹69')">Buy</button></div>
-<div class="card"><h3>Max ₹99</h3><button onclick="buy('Max Kit ₹99')">Buy</button></div>
-<div class="card"><h3>Warden ₹699</h3><button onclick="buy('Warden Kit ₹699')">Buy</button></div>
+<div class="card"><h3>Elite ₹69</h3><button onclick="buy('Elite ₹69')">Buy</button></div>
+<div class="card"><h3>Max ₹99</h3><button onclick="buy('Max ₹99')">Buy</button></div>
+<div class="card"><h3>Overpower ₹149</h3><button onclick="buy('Overpower ₹149')">Buy</button></div>
+<div class="card"><h3>Warden ₹699</h3><button onclick="buy('Warden ₹699')">Buy</button></div>
 `;
 }
 
 if(page==="items"){
 content.innerHTML=`
-<div class="card"><h2>Items</h2></div>
+<div class="card"><h2>💎 Items</h2></div>
 
-<div class="card"><h3>1M Money ₹10</h3><button onclick="buy('1M ₹10')">Buy</button></div>
-<div class="card"><h3>10M Money ₹70</h3><button onclick="buy('10M ₹70')">Buy</button></div>
+<div class="card"><h3>1M ₹10</h3><button onclick="buy('1M ₹10')">Buy</button></div>
+<div class="card"><h3>10M ₹70</h3><button onclick="buy('10M ₹70')">Buy</button></div>
 <div class="card"><h3>Netherite ₹10</h3><button onclick="buy('Netherite ₹10')">Buy</button></div>
+`;
+}
+
+if(page==="staff"){
+content.innerHTML=`
+<div class="card"><h2>🛡️ Staff</h2></div>
+
+<div class="card"><h3>Helper ₹1100</h3><button onclick="buy('Helper ₹1100')">Apply</button></div>
+<div class="card"><h3>Admin ₹1400</h3><button onclick="buy('Admin ₹1400')">Apply</button></div>
+<div class="card"><h3>Senior Admin ₹1700</h3><button onclick="buy('Senior ₹1700')">Apply</button></div>
 `;
 }
 

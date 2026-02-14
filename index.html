@@ -41,10 +41,42 @@
       font-size: 14px;
     }
 
-    /* HERO */
+    .menu {
+      font-size: 22px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+
+    /* SIDEBAR (SMOOTH SLIDE) */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: -260px;
+      width: 260px;
+      height: 100%;
+      background: #0f2a1d;
+      padding: 20px;
+      transition: right 0.35s ease-in-out;
+      z-index: 1000;
+    }
+
+    .sidebar.open {
+      right: 0;
+    }
+
+    .sidebar a {
+      display: block;
+      margin: 18px 0;
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+    }
+
+    /* HERO (MINECRAFT BG + OVERLAY) */
     .hero {
       height: 180px;
-      background: url('https://images.unsplash.com/photo-1606112219348-204d7d8b94ee') center/cover no-repeat;
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+                  url('https://wallpapercave.com/wp/wp2757874.jpg') center/cover no-repeat;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -59,10 +91,10 @@
 
     .hero p {
       font-size: 14px;
-      opacity: 0.8;
+      opacity: 0.9;
     }
 
-    /* CARD */
+    /* CONTENT */
     .container {
       padding: 15px;
     }
@@ -73,6 +105,7 @@
       padding: 25px;
       text-align: center;
       margin-top: 15px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
     }
 
     /* FOOTER */
@@ -82,7 +115,6 @@
       background: #0f2a1d;
       margin-top: 30px;
     }
-
   </style>
 </head>
 
@@ -95,7 +127,18 @@
       <b>MC Server</b>
     </div>
 
-    <div class="login-btn">Login</div>
+    <div>
+      <span class="login-btn">Login</span>
+      <span class="menu" onclick="toggleMenu()">☰</span>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+    <a href="#">Ranks</a>
+    <a href="#">Store</a>
+    <a href="#">Staff</a>
+    <a href="#">YouTube</a>
   </div>
 
   <!-- HERO -->
@@ -106,6 +149,29 @@
     </div>
   </div>
 
+  <!-- CONTENT -->
+  <div class="container">
+    <div class="card">
+      <h2>No ranks available yet</h2>
+      <p>Check back soon!</p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <h3>MC Server</h3>
+    <p>Best Minecraft server with custom ranks</p>
+  </div>
+
+  <!-- SCRIPT -->
+  <script>
+    function toggleMenu() {
+      document.getElementById("sidebar").classList.toggle("open");
+    }
+  </script>
+
+</body>
+</html>
   <!-- CONTENT -->
   <div class="container">
     <div class="card">

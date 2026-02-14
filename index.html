@@ -37,7 +37,8 @@ button{margin-top:10px;padding:10px;width:100%;background:#22c55e;border:none;bo
 .details{display:none;margin-top:10px;font-size:14px;opacity:0.9;}
 
 .popup{
-position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+position:fixed;top:50%;left:50%;
+transform:translate(-50%,-50%);
 background:#0f2a1d;padding:20px;border-radius:10px;
 display:none;z-index:2000;width:80%;max-width:320px;
 }
@@ -113,6 +114,7 @@ function toggleMenu(){
 sidebar.classList.toggle("active");
 overlay.classList.toggle("active");
 }
+
 function closeAll(){
 sidebar.classList.remove("active");
 overlay.classList.remove("active");
@@ -127,6 +129,7 @@ localStorage.setItem("user",n);
 loginText.innerText=n;
 closeAll();
 }
+
 function handleLoginClick(){
 let u=localStorage.getItem("user");
 if(u){
@@ -147,6 +150,7 @@ itemPrice.innerText="User: "+(localStorage.getItem("user")||"Guest");
 paymentBox.style.display="block";
 overlay.classList.add("active");
 }
+
 function closePayment(){
 paymentBox.style.display="none";
 overlay.classList.remove("active");
@@ -161,16 +165,16 @@ el.style.display=(el.style.display==="block")?"none":"block";
 /* PAGES */
 function showPage(page){
 
+/* KITS FULL */
 if(page==="kits"){
 content.innerHTML=`
-
 <div class="card"><h2>🔥 Kits</h2></div>
 
 <div class="card">
 <h3>Elite — ₹69</h3>
 <button class="toggle-btn" onclick="toggleDetails('k1')">View Kit</button>
 <div class="details" id="k1">
-Netherite armor & tools (basic enchant)<br>
+Netherite armor + tools (basic enchant)<br>
 Max bow + food
 </div>
 <button onclick="buy('Elite ₹69')">Buy</button>
@@ -180,70 +184,10 @@ Max bow + food
 <h3>Max — ₹99</h3>
 <button class="toggle-btn" onclick="toggleDetails('k2')">View Kit</button>
 <div class="details" id="k2">
-Netherite max enchant<br>
+Max netherite<br>
 Bow + crossbow + trident + food
 </div>
 <button onclick="buy('Max ₹99')">Buy</button>
-</div>
-
-<div class="card">
-<h3>Overpower — ₹149</h3>
-<button class="toggle-btn" onclick="toggleDetails('k3')">View Kit</button>
-<div class="details" id="k3">
-Level 6 enchants<br>
-Golden apples + totems + weapons
-</div>
-<button onclick="buy('Overpower ₹149')">Buy</button>
-</div>
-
-<div class="card">
-<h3>Gold — ₹199</h3>
-<button class="toggle-btn" onclick="toggleDetails('k4')">View Kit</button>
-<div class="details" id="k4">
-Level 8 enchants<br>
-Mace + potions + enchanted apple
-</div>
-<button onclick="buy('Gold ₹199')">Buy</button>
-</div>
-
-<div class="card">
-<h3>Diamond — ₹249</h3>
-<button class="toggle-btn" onclick="toggleDetails('k5')">View Kit</button>
-<div class="details" id="k5">
-Level 10 enchants<br>
-Knockback stick + better potions
-</div>
-<button onclick="buy('Diamond ₹249')">Buy</button>
-</div>
-
-<div class="card">
-<h3>Netherite — ₹399</h3>
-<button class="toggle-btn" onclick="toggleDetails('k6')">View Kit</button>
-<div class="details" id="k6">
-Level 13 enchants<br>
-Totems + full OP gear
-</div>
-<button onclick="buy('Netherite ₹399')">Buy</button>
-</div>
-
-<div class="card">
-<h3>Bedrock — ₹499</h3>
-<button class="toggle-btn" onclick="toggleDetails('k7')">View Kit</button>
-<div class="details" id="k7">
-Level 15 enchants<br>
-Max weapons + totems + knockback stick
-</div>
-<button onclick="buy('Bedrock ₹499')">Buy</button>
-</div>
-
-<div class="card">
-<h3>Ender — ₹599</h3>
-<button class="toggle-btn" onclick="toggleDetails('k8')">View Kit</button>
-<div class="details" id="k8">
-Level 17 enchants<br>
-Max gear + totems + gapple
-</div>
-<button onclick="buy('Ender ₹599')">Buy</button>
 </div>
 
 <div class="card">
@@ -251,15 +195,35 @@ Max gear + totems + gapple
 <button class="toggle-btn" onclick="toggleDetails('k9')">View Kit</button>
 <div class="details" id="k9">
 Level 20 enchants<br>
-Full max setup (everything)
+Full max setup
 </div>
 <button onclick="buy('Warden ₹699')">Buy</button>
 </div>
-
 `;
 }
 
+/* SIMPLE OTHER PAGES */
+if(page==="ranks"){
+content.innerHTML=`<div class="card"><h2>Ranks Coming Soon</h2></div>`;
 }
+
+if(page==="items"){
+content.innerHTML=`<div class="card"><h2>Items Coming Soon</h2></div>`;
+}
+
+if(page==="staff"){
+content.innerHTML=`<div class="card"><h2>Staff Coming Soon</h2></div>`;
+}
+
+closeAll();
+}
+
+/* LOAD */
+window.onload=()=>{
+let u=localStorage.getItem("user");
+if(u)loginText.innerText=u;
+}
+
 </script>
 
 </body>

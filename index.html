@@ -12,7 +12,6 @@
       color: white;
     }
 
-    /* NAVBAR */
     .navbar {
       display: flex;
       justify-content: space-between;
@@ -46,7 +45,6 @@
       cursor: pointer;
     }
 
-    /* SIDEBAR */
     .sidebar {
       position: fixed;
       top: 0;
@@ -64,22 +62,11 @@
       transform: translateX(0);
     }
 
-    .sidebar a {
-      display: block;
-      margin: 18px 0;
-      color: white;
-      text-decoration: none;
-      font-size: 18px;
-      cursor: pointer;
-    }
-
     .close-btn {
-      font-size: 20px;
-      cursor: pointer;
       float: right;
+      cursor: pointer;
     }
 
-    /* OVERLAY */
     .overlay {
       position: fixed;
       width: 100%;
@@ -93,7 +80,6 @@
       display: block;
     }
 
-    /* HERO (LOCAL IMAGE) */
     .hero {
       height: 200px;
       background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
@@ -104,7 +90,6 @@
       text-align: center;
     }
 
-    /* CONTENT */
     .container {
       padding: 15px;
     }
@@ -117,7 +102,6 @@
       margin-top: 15px;
     }
 
-    /* LOGIN POPUP */
     .login-popup {
       position: fixed;
       top: 50%;
@@ -129,15 +113,12 @@
       display: none;
       z-index: 2000;
       width: 80%;
-      max-width: 300px;
     }
 
     .login-popup input {
       width: 100%;
       padding: 10px;
       margin-top: 10px;
-      border: none;
-      border-radius: 5px;
     }
 
     .login-popup button {
@@ -146,11 +127,8 @@
       width: 100%;
       background: #22c55e;
       border: none;
-      border-radius: 5px;
-      cursor: pointer;
     }
 
-    /* FOOTER */
     .footer {
       text-align: center;
       padding: 25px;
@@ -162,7 +140,6 @@
 
 <body>
 
-  <!-- NAVBAR -->
   <div class="navbar">
     <div class="logo">
       <img src="logo.png">
@@ -175,10 +152,8 @@
     </div>
   </div>
 
-  <!-- OVERLAY -->
   <div class="overlay" id="overlay" onclick="closeAll()"></div>
 
-  <!-- SIDEBAR -->
   <div class="sidebar" id="sidebar">
     <span class="close-btn" onclick="toggleMenu()">❌</span>
     <a onclick="showPage('ranks')">Ranks</a>
@@ -187,7 +162,6 @@
     <a onclick="showPage('youtube')">YouTube</a>
   </div>
 
-  <!-- HERO -->
   <div class="hero">
     <div>
       <h1>Warden SMP Store</h1>
@@ -195,7 +169,6 @@
     </div>
   </div>
 
-  <!-- CONTENT -->
   <div class="container" id="content">
     <div class="card">
       <h2>No ranks available yet</h2>
@@ -203,20 +176,17 @@
     </div>
   </div>
 
-  <!-- LOGIN POPUP -->
   <div class="login-popup" id="loginBox">
     <h3>Login</h3>
     <input type="text" placeholder="Enter Minecraft Username">
     <button onclick="closeAll()">Login</button>
   </div>
 
-  <!-- FOOTER -->
   <div class="footer">
     <h3>Warden SMP</h3>
     <p>Best Survival Server</p>
   </div>
 
-  <!-- SCRIPT -->
   <script>
     function toggleMenu() {
       document.getElementById("sidebar").classList.toggle("active");
@@ -251,81 +221,6 @@
       }
 
       closeAll();
-    }
-  </script>
-
-</body>
-</html>    .card {
-      background: #12271c;
-      border-radius: 12px;
-      padding: 25px;
-      text-align: center;
-      margin-top: 15px;
-    }
-
-    /* FOOTER */
-    .footer {
-      text-align: center;
-      padding: 25px 15px;
-      background: #0f2a1d;
-      margin-top: 30px;
-    }
-  </style>
-</head>
-
-<body>
-
-  <!-- NAVBAR -->
-  <div class="navbar">
-    <div class="logo">
-      <img src="logo.png">
-      <b>MC Server</b>
-    </div>
-
-    <div>
-      <span class="login-btn">Login</span>
-      <span class="menu" onclick="toggleMenu()">☰</span>
-    </div>
-  </div>
-
-  <!-- OVERLAY -->
-  <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
-
-  <!-- SIDEBAR -->
-  <div class="sidebar" id="sidebar">
-    <a href="#">Ranks</a>
-    <a href="#">Store</a>
-    <a href="#">Staff</a>
-    <a href="#">YouTube</a>
-  </div>
-
-  <!-- HERO -->
-  <div class="hero">
-    <div>
-      <h1>Server Ranks</h1>
-      <p>Unlock exclusive perks and kits</p>
-    </div>
-  </div>
-
-  <!-- CONTENT -->
-  <div class="container">
-    <div class="card">
-      <h2>No ranks available yet</h2>
-      <p>Check back soon!</p>
-    </div>
-  </div>
-
-  <!-- FOOTER -->
-  <div class="footer">
-    <h3>MC Server</h3>
-    <p>Best Minecraft server with custom ranks</p>
-  </div>
-
-  <!-- SCRIPT -->
-  <script>
-    function toggleMenu() {
-      document.getElementById("sidebar").classList.toggle("active");
-      document.getElementById("overlay").classList.toggle("active");
     }
   </script>
 

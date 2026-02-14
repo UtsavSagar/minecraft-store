@@ -13,45 +13,87 @@ body{margin:0;font-family:Arial;background:#07140f;color:white;}
 .login-btn{background:#22c55e;padding:8px 14px;border-radius:8px;cursor:pointer;}
 .menu{font-size:22px;cursor:pointer;}
 
-.sidebar{position:fixed;top:0;right:0;width:250px;height:100%;background:#0f2a1d;
-transform:translateX(100%);transition:0.3s;padding:20px;z-index:1000;}
+.sidebar{
+position:fixed;top:0;right:0;width:260px;height:100%;
+background:#0f2a1d;transform:translateX(100%);
+transition:0.3s;padding:20px;z-index:1000;
+}
 .sidebar.active{transform:translateX(0);}
 .sidebar a{display:block;margin:18px 0;cursor:pointer;}
 
-.overlay{position:fixed;width:100%;height:100%;background:rgba(0,0,0,0.6);
-display:none;z-index:900;}
+.overlay{
+position:fixed;width:100%;height:100%;
+background:rgba(0,0,0,0.6);display:none;z-index:900;
+}
 .overlay.active{display:block;}
 
-.hero{height:180px;background:url('background.png') center/cover;}
+.hero{height:200px;background:url('background.png') center/cover;}
 .hero-text{text-align:center;padding:20px;}
 
 .container{padding:15px;}
-.card{background:#12271c;border-radius:12px;padding:20px;margin-top:15px;text-align:center;}
 
-button{margin-top:10px;padding:10px;width:100%;background:#22c55e;border:none;border-radius:8px;}
-
-.login-popup,#paymentBox{
-position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
-background:#0f2a1d;padding:20px;border-radius:10px;display:none;z-index:2000;width:80%;
+.card{
+background:#12271c;
+border-radius:12px;
+padding:20px;
+margin-top:15px;
 }
 
+button{
+margin-top:10px;
+padding:10px;
+width:100%;
+background:#22c55e;
+border:none;
+border-radius:8px;
+cursor:pointer;
+}
+
+.toggle-btn{background:#1f3d2b;}
+
+.details{
+display:none;
+margin-top:10px;
+font-size:14px;
+opacity:0.9;
+}
+
+/* POPUPS */
+.popup{
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:#0f2a1d;
+padding:20px;
+border-radius:10px;
+display:none;
+z-index:2000;
+width:80%;
+max-width:320px;
+}
 </style>
 </head>
 
 <body>
 
+<!-- NAVBAR -->
 <div class="navbar">
 <div class="logo">
-<img src="logo.png"><b>Warden SMP Store</b>
+<img src="logo.png">
+<b>Warden SMP Store</b>
 </div>
+
 <div>
-<span class="login-btn" onclick="handleLoginClick()" id="loginText">Login</span>
+<span class="login-btn" id="loginText" onclick="handleLoginClick()">Login</span>
 <span class="menu" onclick="toggleMenu()">☰</span>
 </div>
 </div>
 
+<!-- OVERLAY -->
 <div class="overlay" id="overlay" onclick="closeAll()"></div>
 
+<!-- SIDEBAR -->
 <div class="sidebar" id="sidebar">
 <a onclick="showPage('ranks')">Ranks</a>
 <a onclick="showPage('kits')">Kits</a>
@@ -59,6 +101,7 @@ background:#0f2a1d;padding:20px;border-radius:10px;display:none;z-index:2000;wid
 <a onclick="showPage('staff')">Staff</a>
 </div>
 
+<!-- HERO -->
 <div class="hero"></div>
 
 <div class="hero-text">
@@ -66,51 +109,96 @@ background:#0f2a1d;padding:20px;border-radius:10px;display:none;z-index:2000;wid
 <p>Best Survival Server Back With Season 2</p>
 </div>
 
+<!-- CONTENT -->
 <div class="container" id="content">
 <div class="card"><h2>Welcome 👋</h2></div>
 </div>
 
 <!-- LOGIN -->
-<div class="login-popup" id="loginBox">
+<div class="popup" id="loginBox">
 <h3>Login</h3>
-<input id="username" placeholder="Minecraft Username">
+<input id="username" placeholder="Minecraft Username" style="width:100%;padding:10px;">
 <button onclick="login()">Login</button>
 </div>
 
 <!-- PAYMENT -->
-<div id="paymentBox">
+<div class="popup" id="paymentBox">
 <h3 id="itemName"></h3>
 <p id="itemPrice"></p>
-<img src="qr.png" style="width:200px">
+<img src="qr.png" style="width:200px;border-radius:10px;">
 <p>Send screenshot on Discord</p>
-<a href="https://discord.gg/mqP9RVCzwH"><button>Join Discord</button></a>
-<button onclick="closePayment()">Close</button>
+<a href="https://discord.gg/mqP9RVCzwH" target="_blank">
+<button>Join Discord</button>
+</a>
+<button onclick="closePayment()" style="background:red;">Close</button>
 </div>
 
 <script>
-function toggleMenu(){sidebar.classList.toggle("active");overlay.classList.toggle("active");}
-function closeAll(){sidebar.classList.remove("active");overlay.classList.remove("active");loginBox.style.display="none";}
+
+/* VARIABLES (FIXED) */
+let sidebar=document.getElementById("sidebar");
+let overlay=document.getElementById("overlay");
+let loginBox=document.getElementById("loginBox");
+let paymentBox=document.getElementById("paymentBox");
+let content=document.getElementById("content");
+let itemName=document.getElementById("itemName");
+let itemPrice=document.getElementById("itemPrice");
+let loginText=document.getElementById("loginText");
+
+/* MENU */
+function toggleMenu(){
+sidebar.classList.toggle("active");
+overlay.classList.toggle("active");
+}
+
+function closeAll(){
+sidebar.classList.remove("active");
+overlay.classList.remove("active");
+loginBox.style.display="none";
+}
+
+/* LOGIN */
 function login(){
-let n=username.value;
+let n=document.getElementById("username").value;
 if(!n)return alert("Enter username");
 localStorage.setItem("user",n);
 loginText.innerText=n;
 closeAll();
 }
+
 function handleLoginClick(){
 let u=localStorage.getItem("user");
-if(u){if(confirm("Logout?")){localStorage.removeItem("user");loginText.innerText="Login";}}
-else loginBox.style.display="block";
+if(u){
+if(confirm("Logout?")){
+localStorage.removeItem("user");
+loginText.innerText="Login";
+}
+}else{
+loginBox.style.display="block";
+overlay.classList.add("active");
+}
 }
 
+/* PAYMENT */
 function buy(item){
 itemName.innerText=item;
 itemPrice.innerText="User: "+(localStorage.getItem("user")||"Guest");
 paymentBox.style.display="block";
 overlay.classList.add("active");
 }
-function closePayment(){paymentBox.style.display="none";overlay.classList.remove("active");}
 
+function closePayment(){
+paymentBox.style.display="none";
+overlay.classList.remove("active");
+}
+
+/* TOGGLE DETAILS */
+function toggleDetails(id){
+let el=document.getElementById(id);
+el.style.display=(el.style.display==="block")?"none":"block";
+}
+
+/* PAGES */
 function showPage(page){
 
 if(page==="ranks"){
@@ -118,20 +206,32 @@ content.innerHTML=`
 <div class="card"><h2>👑 Ranks</h2></div>
 
 <div class="card">
-<h3>VIP ₹349</h3>
-<p>Fly + Support + Kit</p>
+<h3>VIP — ₹349</h3>
+<button class="toggle-btn" onclick="toggleDetails('vip')">View Perks</button>
+<div class="details" id="vip">
+Fly Ability<br>Priority Support<br>Jail Protection<br>Jail instead of Ban<br><br>
+Netherite basic armor + tools, bow, food
+</div>
 <button onclick="buy('VIP ₹349')">Buy</button>
 </div>
 
 <div class="card">
-<h3>VVIP ₹549</h3>
-<p>Admin help + Fast response + Kit</p>
+<h3>VVIP — ₹549</h3>
+<button class="toggle-btn" onclick="toggleDetails('vvip')">View Perks</button>
+<div class="details" id="vvip">
+Admin Support<br>Fast response<br>Extra protection<br>3 wishes<br><br>
+Max netherite, bow, crossbow, trident
+</div>
 <button onclick="buy('VVIP ₹549')">Buy</button>
 </div>
 
-<div class="card">
-<h3>Psychopath ₹799</h3>
-<p>All perks + Max Kit</p>
+<div class="card" style="border:2px solid gold;">
+<h3>PSYCHOPATH — ₹799</h3>
+<button class="toggle-btn" onclick="toggleDetails('psy')">View Perks</button>
+<div class="details" id="psy">
+Owner support<br>Instant help<br>Custom role<br>All perks<br><br>
+Level 20 enchants, full max gear
+</div>
 <button onclick="buy('Psychopath ₹799')">Buy</button>
 </div>
 `;
@@ -144,17 +244,36 @@ content.innerHTML=`
 <div class="card"><h3>Elite ₹69</h3><button onclick="buy('Elite ₹69')">Buy</button></div>
 <div class="card"><h3>Max ₹99</h3><button onclick="buy('Max ₹99')">Buy</button></div>
 <div class="card"><h3>Overpower ₹149</h3><button onclick="buy('Overpower ₹149')">Buy</button></div>
+<div class="card"><h3>Gold ₹199</h3><button onclick="buy('Gold ₹199')">Buy</button></div>
+<div class="card"><h3>Diamond ₹249</h3><button onclick="buy('Diamond ₹249')">Buy</button></div>
+<div class="card"><h3>Netherite ₹399</h3><button onclick="buy('Netherite ₹399')">Buy</button></div>
+<div class="card"><h3>Bedrock ₹499</h3><button onclick="buy('Bedrock ₹499')">Buy</button></div>
+<div class="card"><h3>Ender ₹599</h3><button onclick="buy('Ender ₹599')">Buy</button></div>
 <div class="card"><h3>Warden ₹699</h3><button onclick="buy('Warden ₹699')">Buy</button></div>
 `;
 }
 
 if(page==="items"){
 content.innerHTML=`
-<div class="card"><h2>💎 Items</h2></div>
+<div class="card"><h2>💰 Money</h2></div>
 
 <div class="card"><h3>1M ₹10</h3><button onclick="buy('1M ₹10')">Buy</button></div>
 <div class="card"><h3>10M ₹70</h3><button onclick="buy('10M ₹70')">Buy</button></div>
+<div class="card"><h3>100M ₹450</h3><button onclick="buy('100M ₹450')">Buy</button></div>
+<div class="card"><h3>200M ₹800</h3><button onclick="buy('200M ₹800')">Buy</button></div>
+<div class="card"><h3>500M ₹1500</h3><button onclick="buy('500M ₹1500')">Buy</button></div>
+<div class="card"><h3>1B ₹2500</h3><button onclick="buy('1B ₹2500')">Buy</button></div>
+
+<div class="card"><h2>⚒️ Items</h2></div>
+
 <div class="card"><h3>Netherite ₹10</h3><button onclick="buy('Netherite ₹10')">Buy</button></div>
+<div class="card"><h3>10 Netherite ₹80</h3><button onclick="buy('10 Netherite ₹80')">Buy</button></div>
+<div class="card"><h3>Template ₹20</h3><button onclick="buy('Template ₹20')">Buy</button></div>
+<div class="card"><h3>5 Templates ₹80</h3><button onclick="buy('5 Templates ₹80')">Buy</button></div>
+<div class="card"><h3>Armor Trim ₹25</h3><button onclick="buy('Trim ₹25')">Buy</button></div>
+<div class="card"><h3>5 Trims ₹100</h3><button onclick="buy('5 Trims ₹100')">Buy</button></div>
+<div class="card"><h3>Enchanted Mace ₹100</h3><button onclick="buy('Mace ₹100')">Buy</button></div>
+<div class="card"><h3>Normal Mace ₹50</h3><button onclick="buy('Mace ₹50')">Buy</button></div>
 `;
 }
 
@@ -171,7 +290,11 @@ content.innerHTML=`
 closeAll();
 }
 
-window.onload=()=>{let u=localStorage.getItem("user");if(u)loginText.innerText=u;}
+/* LOAD USER */
+window.onload=()=>{
+let u=localStorage.getItem("user");
+if(u)loginText.innerText=u;
+}
 </script>
 
 </body>

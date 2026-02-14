@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MC Server Store</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial;
+      background: #0b1a12;
+      color: white;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      background: #0f2a1d;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo img {
+      height: 35px;
+      width: 35px;
+      border-radius: 6px;
+      box-shadow: 0 0 10px #22c55e;
+    }
+
+    .logo span {
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .login-btn {
+      background: #22c55e;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .menu {
+      font-size: 22px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      position: fixed;
+      right: -250px;
+      top: 0;
+      width: 250px;
+      height: 100%;
+      background: #0f2a1d;
+      transition: 0.3s;
+      padding: 20px;
+      z-index: 1000;
+    }
+
+    .sidebar a {
+      display: block;
+      margin: 15px 0;
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+    }
+
+    /* HERO */
+    .hero {
+      background: url('https://images.unsplash.com/photo-1606112219348-204d7d8b94ee') center/cover;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 30px;
+      margin: 0;
+    }
+
+    /* CARD */
+    .card {
+      margin: 20px;
+      padding: 20px;
+      background: #12271c;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    button {
+      background: #22c55e;
+      border: none;
+      padding: 10px;
+      margin-top: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    /* FOOTER */
+    .footer {
+      padding: 20px;
+      background: #0f2a1d;
+      margin-top: 40px;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <div class="navbar">
+    <div class="logo">
+      <img src="logo.png" alt="Server Logo">
+      <span>MC Server</span>
+    </div>
+
+    <div>
+      <span class="login-btn">Login</span>
+      <span class="menu" onclick="toggleMenu()">☰</span>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+    <a href="#">Ranks</a>
+    <a href="#">Store</a>
+    <a href="#">Staff</a>
+    <a href="#">YouTube</a>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div>
+      <h1>Server Ranks</h1>
+      <p>Unlock exclusive perks and kits</p>
+    </div>
+  </div>
+
+  <!-- NO RANKS CARD -->
+  <div class="card">
+    <h2>No ranks available yet</h2>
+    <p>Check back soon!</p>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <h3>MC Server</h3>
+    <p>Best Minecraft server with custom ranks</p>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      let sidebar = document.getElementById("sidebar");
+      sidebar.style.right = sidebar.style.right === "0px" ? "-250px" : "0px";
+    }
+
+    function buy(item) {
+      alert(
+        "To buy " + item + ":\n\n" +
+        "Pay via UPI: yourupi@id\n" +
+        "Send screenshot in Discord"
+      );
+    }
+  </script>
+
+</body>
+</html>
